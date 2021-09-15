@@ -1,4 +1,8 @@
+// noinspection JSUnusedGlobalSymbols
+
 import styled from 'styled-components';
+
+import Slider from 'react-slick';
 
 export const Wrapper = styled.div({
   display: 'flex',
@@ -28,6 +32,12 @@ export const Map = styled.div({
   backgroundColor: 'red',
   width: '500px',
 });
+
+export const Carousel = styled(Slider)`
+  .slick-slide {
+    margin-right: 25px;
+  }
+`;
 
 export const CarouselTitle = styled.h2({
   fontFamily: (props) => props.theme.fonts.regular,
