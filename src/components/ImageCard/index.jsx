@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Card, Title } from './styles';
 
-const ImageCard = ({ photo }) => (
+const ImageCard = ({ photo, title }) => (
   <Card photo={photo}>
-    <Title>Nome do Restaurante</Title>
+    <Title>{title}</Title>
   </Card>
 );
 

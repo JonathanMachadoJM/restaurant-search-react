@@ -25,12 +25,8 @@ export const Search = styled.section({
 });
 
 export const Logo = styled.img({
-  marginBottom: '15px',
-});
-
-export const Map = styled.div({
-  backgroundColor: 'red',
-  width: '500px',
+  margin: '0 auto 15px',
+  width: '50%',
 });
 
 export const Carousel = styled(Slider)`

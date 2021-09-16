@@ -4,12 +4,13 @@ import MaterialIcon from '@material/react-material-icon';
 
 import logo from '../../assets/logo.svg';
 import restaurante from '../../assets/restaurante-fake.png';
-import { Card } from '../../components';
+import { ImageCard, RestaurantCard, Modal, Map } from '../../components';
 
-import { Wrapper, Container, Search, Logo, Map, CarouselTitle, Carousel } from './styles';
+import { Wrapper, Container, Search, Logo, CarouselTitle, Carousel } from './styles';
 
 const Home = () => {
   const [inputValue, setInputValue] = useState('');
+  const [modalOpened, setModalOpened] = useState(false);
 
   const settings = {
     arrows: false,
@@ -35,16 +36,18 @@ const Home = () => {
           </TextField>
           <CarouselTitle>Na sua Área</CarouselTitle>
           <Carousel {...settings}>
-            <Card photo={restaurante} />
-            <Card photo={restaurante} />
-            <Card photo={restaurante} />
-            <Card photo={restaurante} />
-            <Card photo={restaurante} />
-            <Card photo={restaurante} />
+            <ImageCard photo={restaurante} title="Nome" />
+            <ImageCard photo={restaurante} title="Nome" />
+            <ImageCard photo={restaurante} title="Nome" />
+            <ImageCard photo={restaurante} title="Nome" />
+            <ImageCard photo={restaurante} title="Nome" />
+            <ImageCard photo={restaurante} title="Nome" />
           </Carousel>
         </Search>
+        <RestaurantCard />
       </Container>
       <Map />
+      <Modal open={modalOpened} onClose={() => setModalOpened(!modalOpened)} />
     </Wrapper>
   );
 };
