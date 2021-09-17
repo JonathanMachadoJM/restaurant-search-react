@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import TextField, { Input } from '@material/react-text-field';
 import MaterialIcon from '@material/react-material-icon';
 
@@ -10,7 +11,9 @@ import { Wrapper, Container, Search, Logo, CarouselTitle, Carousel } from './sty
 
 const Home = () => {
   const [inputValue, setInputValue] = useState('');
+  const [query, setQuery] = useState(null);
   const [modalOpened, setModalOpened] = useState(false);
+  const { restaurants } = useSelector((state) => state.restaurants);
 
   const settings = {
     arrows: false,
@@ -20,6 +23,12 @@ const Home = () => {
     slidesToShow: 4,
     slidesToScroll: 4,
     adaptiveHeight: true,
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      setQuery(inputValue);
+    }
   };
 
   return (
@@ -32,21 +41,28 @@ const Home = () => {
             outlined
             // onTrailingIconSelect={() => this.setState({value: ''})}
             trailingIcon={<MaterialIcon role="button" icon="search" />}>
-            <Input value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+            <Input
+              value={inputValue}
+              onKeyPress={handleKeyPress}
+              onChange={(e) => setInputValue(e.target.value)}
+            />
           </TextField>
           <CarouselTitle>Na sua Área</CarouselTitle>
           <Carousel {...settings}>
-            <ImageCard photo={restaurante} title="Nome" />
-            <ImageCard photo={restaurante} title="Nome" />
-            <ImageCard photo={restaurante} title="Nome" />
-            <ImageCard photo={restaurante} title="Nome" />
-            <ImageCard photo={restaurante} title="Nome" />
-            <ImageCard photo={restaurante} title="Nome" />
+            {restaurants.map((restaurant) => (
+              <ImageCard
+                key={restaurant.place_id}
+                photo={restaurant.photos ? restaurant.photos[0].getUrl() : restaurante}
+                title={restaurant.name}
+              />
+            ))}
           </Carousel>
         </Search>
-        <RestaurantCard />
+        {restaurants.map((restaurant) => (
+          <RestaurantCard restaurant={restaurant} />
+        ))}
       </Container>
-      <Map />
+      <Map query={query} />
       <Modal open={modalOpened} onClose={() => setModalOpened(!modalOpened)} />
     </Wrapper>
   );
